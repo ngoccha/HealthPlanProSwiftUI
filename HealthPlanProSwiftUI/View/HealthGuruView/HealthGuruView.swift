@@ -9,7 +9,8 @@ import SwiftUI
 
 struct HealthGuruView: View {
     @State private var isGoToLog = false
-
+    @Binding var logs: [Log]
+    
     var body: some View {
         VStack {
             Text("Health Guru")
@@ -26,10 +27,14 @@ struct HealthGuruView: View {
                     isGoToLog.toggle()
                 }
                 .fullScreenCover(isPresented: $isGoToLog) {
-                   EnterLogView()
+                    EnterLogView(logs: $logs)
                 }
             
-            EmptyLogView()
+            if logs.isEmpty {
+                LogView()
+            } else {
+                EmptyLogView()
+            }
             
             Spacer()
         }
@@ -40,5 +45,7 @@ struct HealthGuruView: View {
 }
 
 #Preview {
-    HealthGuruView()
+    HealthGuruView(logs: .constant([
+        Log(pulse: 120, hrv: 60)
+    ]))
 }

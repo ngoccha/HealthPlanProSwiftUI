@@ -14,15 +14,26 @@ struct EmptyLogView: View {
             HStack(spacing: 27) {
                 VStack(alignment: .leading) {
                     Text("Pulse")
+                        .fontWeight(.medium)
+                        .foregroundColor(Color("Neutral3"))
                     Text("-- bpm")
+                        .fontWeight(.medium)
+                        .foregroundColor(Color("Neutral2"))
                 }
                 VStack(alignment: .leading) {
                     Text("HRV")
+                        .fontWeight(.medium)
+                        .foregroundColor(Color("Neutral3"))
                     Text("-- bpm")
+                        .fontWeight(.medium)
+                        .foregroundColor(Color("Neutral2"))
                 }
                 VStack(alignment: .leading) {
-                    Text("Status")
+                    Text("Status") .fontWeight(.medium)
+                        .foregroundColor(Color("Neutral3"))
                     Text("--")
+                        .fontWeight(.medium)
+                        .foregroundColor(Color("Neutral2"))
                 }
             }
             Spacer()
@@ -37,6 +48,7 @@ struct EmptyLogView: View {
         .listRowSeparator(.hidden)
         .listRowBackground(Color.clear)
         .padding(.vertical, 6)
+        
         HStack() {
             VStack(alignment: .leading, spacing: 4) {
                 HStack(spacing: 4) {

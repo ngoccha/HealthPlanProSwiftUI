@@ -13,22 +13,31 @@ enum Tab {
 }
 
 struct TabHomeView: View {
-    @State var isSelectedTab: Tab = .log
-
+    @State private var isSelectedTab: Tab = .log
+    @Binding var logs: [Log]
     var body: some View {
         TabView(selection: $isSelectedTab) {
-            Tab("Received", systemImage: "tray.and.arrow.down.fill", value: .log) {
-                   HealthGuruView()
-               }
+            HealthGuruView(logs: $logs)
+                .tabItem {
+                    Image(isSelectedTab == .log ? "icChart" : "icGrayChart")
+                    Text("Report")
 
-
-            Tab("Sent", systemImage: "tray.and.arrow.up.fill", value: .setting) {
-                   SettingView()
-               }
+                }
+                .tag(Tab.log)
+            
+            SettingView()
+                .tabItem {
+                    Image(isSelectedTab == .setting ? "icSettingSelected" : "icSetting")
+                    Text("Settings")
+                }
+                .tag(Tab.setting)
         }
+        .tint(Color("Primary"))
     }
 }
 
 #Preview {
-    TabHomeView()
+    TabHomeView(logs: .constant([
+        Log(pulse: 120, hrv: 60)
+    ]))
 }

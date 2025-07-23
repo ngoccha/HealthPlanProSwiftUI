@@ -11,7 +11,7 @@ import SwiftUI
 struct HealthPlanProSwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            FirstPageView()
         }
     }
 }
