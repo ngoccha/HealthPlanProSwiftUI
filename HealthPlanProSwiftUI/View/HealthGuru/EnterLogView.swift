@@ -67,6 +67,7 @@ struct EnterLogView: View {
             
             Spacer()
             ButtonView(title: "Add", action: {
+                addLog()
                 dismiss()
             })
             

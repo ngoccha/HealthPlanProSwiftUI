@@ -30,10 +30,14 @@ struct FirstPageView: View {
                     .padding(.horizontal, 30)
                 Spacer()
                 ButtonView(title: "Continue", action: {
-                    //sth
+                    goToIssueOption = true
                 })
             }
             .background(Color("Background"))
+            .navigationDestination(isPresented: $goToIssueOption) {
+                            IssueOptionView()
+            }
+            .navigationBarHidden(true)
         }
     }
 }

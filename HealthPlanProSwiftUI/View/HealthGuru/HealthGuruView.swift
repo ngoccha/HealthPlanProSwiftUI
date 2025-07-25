@@ -14,7 +14,7 @@ struct HealthGuruView: View {
     var body: some View {
         VStack {
             Text("Health Guru")
-                .font(.system(size: 40))
+                .font(.system(size: 32))
                 .fontWeight(.semibold)
                 .foregroundColor(Color("Neutral11"))
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -44,6 +44,6 @@ struct HealthGuruView: View {
     }
 }
 
-//#Preview {
-//    HealthGuruView(logs: .c)
-//}
+#Preview {
+    HealthGuruView()
+}

@@ -17,15 +17,27 @@ struct LogView: View {
                     HStack(spacing: 27) {
                         VStack(alignment: .leading) {
                             Text("Pulse")
+                                .fontWeight(.medium)
+                                .foregroundStyle(Color("Neutral3"))
                             Text("\(logs[item].pulse) bpm")
+                                .fontWeight(.medium)
+                                .foregroundStyle(Color(logs[item].status.statusColor))
                         }
                         VStack(alignment: .leading) {
                             Text("HRV")
+                                .fontWeight(.medium)
+                                .foregroundStyle(Color("Neutral3"))
                             Text("\(logs[item].hrv) bpm")
+                                .fontWeight(.medium)
+                                .foregroundStyle(Color(logs[item].status.statusColor))
                         }
                         VStack(alignment: .leading) {
                             Text("Status")
-                            Text("\(logs[item].status)")
+                                .fontWeight(.medium)
+                                .foregroundStyle(Color("Neutral3"))
+                            Text("\(logs[item].status.statusName)")
+                                .fontWeight(.medium)
+                                .foregroundStyle(Color(logs[item].status.statusColor))
                         }
                     }
                     Spacer()
@@ -43,5 +55,6 @@ struct LogView: View {
             }
         }
         .listStyle(.plain)
+        .padding(.bottom, 34)
     }
 }

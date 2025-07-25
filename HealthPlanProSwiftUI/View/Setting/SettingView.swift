@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct SettingView: View {
+    let section2 = [SettingItem.reminder, SettingItem.icon, SettingItem.language]
+    let section3 = [SettingItem.rate, SettingItem.feeback, SettingItem.privacy, SettingItem.term]
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Settings")
@@ -18,15 +21,37 @@ struct SettingView: View {
                 .resizable()
                 .scaledToFit()
             List {
-                Group {
-//                    SettingRowView(settingItem: <#SettingItem#>)
-//                        .listRowInsets(EdgeInsets())
+                Section {
+                    SettingRowView(settingItem: SettingItem.profile)
+                        .listRowInsets(EdgeInsets())
+                        .cornerRadius(12)
+                        .padding(.bottom, 16)
                 }
-                .padding(.bottom, 16)
                 .background(Color("Background"))
-                Group {
-//                    SettingRowView(settingItem: <#SettingItem#>)
-//                        .listRowInsets(EdgeInsets())
+
+                Section {
+                    ForEach(0..<section2.count, id: \.self) { index in
+                        let item = section2[index]
+                        SettingRowView(
+                            settingItem: item,
+                            isFirst: index == 0,
+                            isLast: index == section2.count - 1
+                        )
+                        .listRowInsets(EdgeInsets())
+                    }
+                }
+                .background(Color("Background"))
+                
+                Section {
+                    ForEach(0..<section3.count, id: \.self) { index in
+                        let item = section3[index]
+                        SettingRowView(
+                            settingItem: item,
+                            isFirst: index == 0,
+                            isLast: index == section3.count - 1
+                        )
+                            .listRowInsets(EdgeInsets())
+                    }
                 }
                 .background(Color("Background"))
             }

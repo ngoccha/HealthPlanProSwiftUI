@@ -16,7 +16,7 @@ enum SettingItem {
     case feeback
     case privacy
     case term
-    
+        
     var name: String {
         switch self {
         case .profile:
@@ -59,3 +59,4 @@ enum SettingItem {
         }
     }
 }
+

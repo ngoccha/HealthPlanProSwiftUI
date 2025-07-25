@@ -12,6 +12,17 @@ struct HealthPlanProSwiftUIApp: App {
     var body: some Scene {
         WindowGroup {
             FirstPageView()
+//            TabHomeView()
+//                .onAppear(){
+//                  let appearance: UITabBarAppearance = {
+//                    let app = UITabBarAppearance()
+//                    app.stackedLayoutAppearance.normal.titleTextAttributes = [
+//                      .font: UIFont.systemFont(ofSize: 14)
+//                    ]
+//                    return app
+//                  }()
+//                  UITabBar.appearance().scrollEdgeAppearance = appearance
+//                }
         }
     }
 }

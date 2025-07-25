@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct PlanOptionView: View {
-    @State private var goToSetting = false
+    @State private var goToHealthGuru = false
     
     @State private var plans = [
         Option(name: "Educational Plan", imageName: "icPlanApple", isSelected: false),
@@ -16,23 +16,28 @@ struct PlanOptionView: View {
         Option(name: "Health Tests", imageName: "icPlanTest", isSelected: false),
     ]
     
+    var isEnabled: Bool {
+        plans.contains(where: { $0.isSelected })
+    }
+    
     var body: some View {
-        VStack {
-            Text("What type of plan would you like to follow?")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(Color("Neutral11"))
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 33)
-                .padding(.bottom, 24)
-            
-            ScrollView(.vertical, showsIndicators: false) {
-                let columns = [
-                    GridItem(.adaptive(minimum: 150))
-                ]
-                LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(0..<plans.count, id: \.self) { item in
-                        GridItemView(title: plans[item].name, imageName: plans[item].imageName, isSelected: plans[item].isSelected)
+        NavigationStack {
+            VStack {
+                Text("What type of plan would you like to follow?")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color("Neutral11"))
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 33)
+                    .padding(.bottom, 24)
+                
+                ScrollView(.vertical, showsIndicators: false) {
+                    let columns = [
+                        GridItem(.adaptive(minimum: 150))
+                    ]
+                    LazyVGrid(columns: columns, spacing: 16) {
+                        ForEach(0..<plans.count, id: \.self) { item in
+                            GridItemView(title: plans[item].name, imageName: plans[item].imageName, isSelected: plans[item].isSelected)
                                 .frame(width: (UIScreen.main.bounds.width - 58) / 2, height: 195)
                                 .background()
                                 .cornerRadius(20)
@@ -43,19 +48,34 @@ struct PlanOptionView: View {
                                 .onTapGesture {
                                     plans[item].isSelected.toggle()
                                 }
+                        }
+                        .padding(.top, 1)
                     }
-                    .padding(.top, 1)
                 }
+                .scrollDisabled(true)
+                .padding(.horizontal, 16)
+                Spacer()
+                ButtonView(title: "Continue", action: {
+                    goToHealthGuru = true
+                }, isEnabled: isEnabled)
             }
-            .scrollDisabled(true)
-            .padding(.horizontal, 16)
-            Spacer()
-            ButtonView(title: "Continue", action: {
-                //sth
-            })
+            .padding(.top, 80)
+            .background(Color("Background"))
         }
-        .padding(.top, 80)
-        .background(Color("Background"))
+        .navigationDestination(isPresented: $goToHealthGuru) {
+            TabHomeView()
+                .onAppear(){
+                  let appearance: UITabBarAppearance = {
+                    let app = UITabBarAppearance()
+                    app.stackedLayoutAppearance.normal.titleTextAttributes = [
+                      .font: UIFont.systemFont(ofSize: 14)
+                    ]
+                    return app
+                  }()
+                  UITabBar.appearance().scrollEdgeAppearance = appearance
+                }
+        }
+        .navigationBarHidden(true)
     }
 }
 

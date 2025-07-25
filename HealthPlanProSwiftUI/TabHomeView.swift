@@ -14,10 +14,9 @@ enum Tab {
 
 struct TabHomeView: View {
     @State private var isSelectedTab: Tab = .log
-    @Binding var logs: [Log]
     var body: some View {
         TabView(selection: $isSelectedTab) {
-            HealthGuruView(logs: $logs)
+            HealthGuruView()
                 .tabItem {
                     Image(isSelectedTab == .log ? "icChart" : "icGrayChart")
                     Text("Report")
@@ -33,11 +32,10 @@ struct TabHomeView: View {
                 .tag(Tab.setting)
         }
         .tint(Color("Primary"))
+        .navigationBarHidden(true)
     }
 }
 
-#Preview {
-    TabHomeView(logs: .constant([
-        Log(pulse: 120, hrv: 60)
-    ]))
-}
+//#Preview {
+//    TabHomeView(logs: logs)
+//}

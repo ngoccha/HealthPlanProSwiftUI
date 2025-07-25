@@ -8,17 +8,22 @@
 import SwiftUI
 
 struct ButtonView: View {
+    var title: String
+    var action: () -> Void
+    var isEnabled: Bool = true
+
     var body: some View {
-        Button(action: {
-        }) {
-            Text("Continue")
+        Button(action: action) {
+            Text(title)
                 .font(.headline)
                 .fontWeight(.semibold)
-                .foregroundColor(.white)
+                .foregroundColor(Color.white)
                 .frame(maxWidth: .infinity, maxHeight: 56)
-                .background(Color("Primary"))
+                .background(isEnabled ? Color("Primary") : Color("Neutral3"))
                 .cornerRadius(16)
         }
+        .disabled(!isEnabled)
         .padding(16)
     }
 }
+

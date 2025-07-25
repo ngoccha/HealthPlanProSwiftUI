@@ -9,7 +9,15 @@ import SwiftUI
 
 struct SettingRowView: View {
     var settingItem: SettingItem
+    var isFirst: Bool = false
+    var isLast: Bool = false
+    
     var body: some View {
+        if isLast {
+            ZStack {
+                
+            }
+        }
         HStack(spacing: 12) {
             Image(settingItem.iconName)
             Text(settingItem.name)
@@ -19,6 +27,10 @@ struct SettingRowView: View {
         .padding(.vertical, 16)
         .padding(.horizontal, 16)
         .background(Color.white)
-        .cornerRadius(12)
+        .cornerRadius(isFirst ? 16 : 0)
+        .cornerRadius(isLast ? 16 : 0)
+        .padding(.bottom, isLast ? 16 : 0)
+        
     }
 }
+
