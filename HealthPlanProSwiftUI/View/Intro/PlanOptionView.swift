@@ -44,11 +44,15 @@ struct PlanOptionView: View {
                                     plans[item].isSelected.toggle()
                                 }
                     }
+                    .padding(.top, 1)
                 }
             }
+            .scrollDisabled(true)
             .padding(.horizontal, 16)
             Spacer()
-            ButtonView()
+            ButtonView(title: "Continue", action: {
+                //sth
+            })
         }
         .padding(.top, 80)
         .background(Color("Background"))

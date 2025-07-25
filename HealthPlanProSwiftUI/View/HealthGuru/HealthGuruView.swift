@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HealthGuruView: View {
     @State private var isGoToLog = false
-    @Binding var logs: [Log]
+    @State var logs: [Log] = []
     
     var body: some View {
         VStack {
@@ -30,8 +30,8 @@ struct HealthGuruView: View {
                     EnterLogView(logs: $logs)
                 }
             
-            if logs.isEmpty {
-                LogView()
+            if !logs.isEmpty {
+                LogView(logs: $logs)
             } else {
                 EmptyLogView()
             }
@@ -44,8 +44,6 @@ struct HealthGuruView: View {
     }
 }
 
-#Preview {
-    HealthGuruView(logs: .constant([
-        Log(pulse: 120, hrv: 60)
-    ]))
-}
+//#Preview {
+//    HealthGuruView(logs: .c)
+//}

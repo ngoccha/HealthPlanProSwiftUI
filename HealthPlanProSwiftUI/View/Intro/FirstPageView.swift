@@ -12,7 +12,6 @@ struct FirstPageView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                NavigationLink(destination: IssueOptionView(), isActive: $goToIssueOption) { EmptyView() }
                 Text("Health Plan Pro")
                     .font(.largeTitle)
                     .fontWeight(.bold)
@@ -30,7 +29,9 @@ struct FirstPageView: View {
                     .scaledToFit()
                     .padding(.horizontal, 30)
                 Spacer()
-                ButtonView()
+                ButtonView(title: "Continue", action: {
+                    //sth
+                })
             }
             .background(Color("Background"))
         }

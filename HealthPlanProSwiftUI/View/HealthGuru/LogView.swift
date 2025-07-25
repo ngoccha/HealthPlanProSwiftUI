@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct LogView: View {
-    @State private var logs: [Log] = []
+    @Binding var logs: [Log]
     var body: some View {
         List {
             ForEach(0..<logs.count, id: \.self) { item in
