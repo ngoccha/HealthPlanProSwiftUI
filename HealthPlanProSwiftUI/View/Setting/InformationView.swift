@@ -1,3 +1,11 @@
+//
+//  InformationView.swift
+//  HealthPlanProSwiftUI
+//
+//  Created by iKame Elite Fresher 2025 on 7/26/25.
+//
+
+
 import SwiftUI
 
 struct InformationView: View {
@@ -7,30 +15,28 @@ struct InformationView: View {
     @State private var height: String = ""
     @State private var weight: String = ""
     
-    @State private var show : Bool = false
-
+    @EnvironmentObject var settingManager: SettingManager
+    
     
     var body: some View {
-        @State var heightCmtoM = (Double(height) ?? 0) / 100
-        @State var bmi = (Double(weight) ?? 0) / pow(heightCmtoM, 2)
-
+        
         VStack {
             Text("My Profile")
                 .font(.title2)
                 .fontWeight(.bold)
                 .padding(.bottom, 16)
-                        
+            
             HStack(spacing: 12) {
                 VStack(alignment: .leading) {
                     Text("First name")
                         .font(.body)
                     TextField(("Enter first name"), text:
-                        $firstName)
-                        .padding(.leading, 12)
-                        .frame(height: 52)
-                        .font(.body)
-                        .background(Color.white)
-                        .cornerRadius(16)
+                                $firstName)
+                    .padding(.leading, 12)
+                    .frame(height: 52)
+                    .font(.body)
+                    .background(Color.white)
+                    .cornerRadius(16)
                 }
                 VStack(alignment: .leading) {
                     Text("Last name")
@@ -58,7 +64,7 @@ struct InformationView: View {
                 
             }
             .padding(.bottom, 21)
-
+            
             
             VStack() {
                 VStack(alignment: .leading) {
@@ -95,27 +101,34 @@ struct InformationView: View {
                 }
             }
             .padding(.bottom, 21)
-                        
-            if show {
-                HStack(alignment: .top, spacing: 16) {
-                    VStack(alignment: .leading, spacing: 11) {
-                        Text("**Full name:** \(firstName) \(lastName)")
-                        Text("**Height:** \(height) cm")
-                        Text("**BMI:** \(bmi)")
-                    }
-                    Spacer()
-                    VStack(alignment: .leading, spacing: 11) {
-                        Text("**Gender:** \(gender)")
-                        Text("**Weight:** \(weight) kg")
-                    }
-                    .padding(.trailing, 50)
-                }
-            }
-        
+            
+            //            if show {
+            //                HStack(alignment: .top, spacing: 16) {
+            //                    VStack(alignment: .leading, spacing: 11) {
+            //                        Text("**Full name:** \(firstName) \(lastName)")
+            //                        Text("**Height:** \(height) cm")
+            //                        Text("**BMI:** \(bmi)")
+            //                    }
+            //                    Spacer()
+            //                    VStack(alignment: .leading, spacing: 11) {
+            //                        Text("**Gender:** \(gender)")
+            //                        Text("**Weight:** \(weight) kg")
+            //                    }
+            //                    .padding(.trailing, 50)
+            //                }
+            //            }
+            
             Spacer()
             
             Button(action: {
-                show = true
+                saveProfile()
+                
+                DispatchQueue.main.async {
+                    settingManager.push(destination: .profile)
+                }
+
+                print(settingManager.profile ?? "nil")
+
             }, label: {
                 Text("Complete")
                     .font(.body)
@@ -123,14 +136,34 @@ struct InformationView: View {
                     .foregroundColor(.white)
             })
             .frame(width: 361, height: 52)
-            .background(Color(.primary1))
+            .background(Color("Primary"))
             .cornerRadius(16)
         }
         .padding(16)
         .background(Color(.background))
+    }
+    func saveProfile() {
+        
+        guard let weightValue = Double(weight),
+              let heightValue = Double(height) else {return}
+        
+        let heightCmtoMValue = heightValue / 100
+        let bmi = weightValue / pow(heightCmtoMValue, 2)
+        
+        let newProfile = Profile(
+            firstName: self.firstName,
+            lastName: self.lastName,
+            bmi: bmi,
+            weight: weightValue,
+            height: heightValue,
+            gender: self.gender
+        )
+        settingManager.profile = newProfile
+        
     }
 }
 
 #Preview {
     InformationView()
 }
+

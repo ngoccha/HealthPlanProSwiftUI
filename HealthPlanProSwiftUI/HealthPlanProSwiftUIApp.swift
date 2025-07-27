@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct HealthPlanProSwiftUIApp: App {
+    @StateObject var settingManager = SettingManager()
+
     var body: some Scene {
         WindowGroup {
             FirstPageView()
+                .environmentObject(settingManager)
+
 //            TabHomeView()
 //                .onAppear(){
 //                  let appearance: UITabBarAppearance = {

@@ -13,26 +13,40 @@ enum Tab {
 }
 
 struct TabHomeView: View {
+    @EnvironmentObject var settingManager: SettingManager
+
     @State private var isSelectedTab: Tab = .log
     var body: some View {
-        TabView(selection: $isSelectedTab) {
-            HealthGuruView()
-                .tabItem {
-                    Image(isSelectedTab == .log ? "icChart" : "icGrayChart")
-                    Text("Report")
+        NavigationStack(path: $settingManager.settingPath) {
+                    TabView(selection: $isSelectedTab) {
+                        HealthGuruView()
+                            .tabItem {
+                                Image(isSelectedTab == .log ? "icChart" : "icGrayChart")
+                                Text("Report")
+                            }
+                            .tag(Tab.log)
+                        
+                        SettingView()
+                            .tabItem {
+                                Image(isSelectedTab == .setting ? "icSettingSelected" : "icSetting")
+                                Text("Settings")
+                            }
+                            .tag(Tab.setting)
+                    }
+                    .tint(Color("Primary"))
+                    .navigationBarHidden(true)
 
+                    .navigationDestination(for: Destination.self) { destination in
+                        switch destination {
+                        case .profile:
+                            ProfileView()
+                        case .information:
+                            InformationView()
+                        case .setting:
+                            SettingView()
+                        }
+                    }
                 }
-                .tag(Tab.log)
-            
-            SettingView()
-                .tabItem {
-                    Image(isSelectedTab == .setting ? "icSettingSelected" : "icSetting")
-                    Text("Settings")
-                }
-                .tag(Tab.setting)
-        }
-        .tint(Color("Primary"))
-        .navigationBarHidden(true)
     }
 }
 

@@ -13,11 +13,6 @@ struct SettingRowView: View {
     var isLast: Bool = false
     
     var body: some View {
-        if isLast {
-            ZStack {
-                
-            }
-        }
         HStack(spacing: 12) {
             Image(settingItem.iconName)
             Text(settingItem.name)

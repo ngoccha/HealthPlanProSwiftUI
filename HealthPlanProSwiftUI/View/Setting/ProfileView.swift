@@ -1,6 +1,16 @@
+//
+//  ProfileView.swift
+//  HealthPlanProSwiftUI
+//
+//  Created by iKame Elite Fresher 2025 on 7/26/25.
+//
+
+
 import SwiftUI
 
 struct ProfileView: View {
+    @EnvironmentObject var settingManager: SettingManager
+
     var body: some View {
         ZStack {
             Rectangle()
@@ -18,33 +28,23 @@ struct ProfileView: View {
     
     var avaView: some View {
         VStack(spacing: 24) {
-            Image("ava")
+            Image("icAva")
                 .resizable()
                 .frame(width: 108, height: 108)
-            Text("John Weak")
+            Text(settingManager.profile?.fullName ?? "")
                 .font(.largeTitle)
                 .fontWeight(.semibold)
-                .foregroundColor(.primary15)
+//                .foregroundColor(.primary15)
         }
     }
     
     var infoProfileView: some View {
-//        struct Info {
-//            var weight: String
-//            var height: String
-//            var age = 28
-//            var gender: String
-//        }
-//        @State var info = [
-//           Info(weight: "45 kg", height: "160 cm", gender: "Female")
-//        ]
-        
         VStack(spacing: 12) {
             VStack {
                 Text("Your BMI")
                     .font(.system(size: 16))
                     .fontWeight(.medium)
-                Text("23.5")
+                Text(String(format: "%.2f", settingManager.profile?.bmi ?? 0.0))
                     .font(.system(size: 64))
                     .fontWeight(.bold)
                     .foregroundColor(.good)
@@ -53,7 +53,7 @@ struct ProfileView: View {
                 .padding(.horizontal, 16)
             HStack(spacing: 25.67) {
                 VStack {
-                    Text("48 kg")
+                    Text("\(settingManager.profile?.weight) kg")
                         .foregroundColor(.good)
                         .fontWeight(.semibold)
                     Text("Weight")
@@ -61,7 +61,7 @@ struct ProfileView: View {
                         .fontWeight(.medium)
                 }
                 VStack {
-                    Text("160 cm")
+                    Text("\(settingManager.profile?.height) cm")
                         .foregroundColor(.good)
                         .fontWeight(.semibold)
                     Text("Height")
@@ -76,7 +76,7 @@ struct ProfileView: View {
                         .fontWeight(.medium)
                 }
                 VStack {
-                    Text("Female")
+                    Text(settingManager.profile?.gender ?? "")
                         .foregroundColor(.good)
                         .fontWeight(.semibold)
                     Text("Gender")
@@ -100,7 +100,7 @@ struct ProfileView: View {
                 .foregroundColor(.white)
         })
         .frame(maxWidth: .infinity, maxHeight: 56)
-        .background(Color(.primary1))
+//        .background(Color(.primary1))
         .cornerRadius(16)
         .padding(20)
     }
