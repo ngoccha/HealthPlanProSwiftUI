@@ -14,9 +14,25 @@ struct ProfileView: View {
     var body: some View {
         ZStack {
             Rectangle()
-                .fill(Color("background"))
+                .fill(Color("Background"))
                 .edgesIgnoringSafeArea(.all)
             VStack(spacing: 24) {
+                ZStack() {
+                    HStack {
+                        Image("icBack")
+                            .onTapGesture {
+                                settingManager.popToRoot()
+                            }
+                            .padding(.leading, 16)
+                        Spacer()
+                    }
+                    
+                    Text("Profile")
+                        .font(.system(size: 20))
+                        .fontWeight(.bold)
+                        .foregroundStyle(Color("Neutral1"))
+                }
+                .padding(.vertical, 24)
                 Spacer()
                 avaView
                 infoProfileView
@@ -24,6 +40,7 @@ struct ProfileView: View {
                 editButtonView
             }
         }
+        .navigationBarHidden(true)
     }
     
     var avaView: some View {
@@ -53,7 +70,7 @@ struct ProfileView: View {
                 .padding(.horizontal, 16)
             HStack(spacing: 25.67) {
                 VStack {
-                    Text("\(settingManager.profile?.weight) kg")
+                    Text("\(String(format: "%.1f", settingManager.profile?.weight ?? 0.0)) kg")
                         .foregroundColor(.good)
                         .fontWeight(.semibold)
                     Text("Weight")
@@ -61,7 +78,7 @@ struct ProfileView: View {
                         .fontWeight(.medium)
                 }
                 VStack {
-                    Text("\(settingManager.profile?.height) cm")
+                    Text("\(String(format: "%.1f", settingManager.profile?.height ?? 0.0)) cm")
                         .foregroundColor(.good)
                         .fontWeight(.semibold)
                     Text("Height")
@@ -93,6 +110,7 @@ struct ProfileView: View {
     
     var editButtonView: some View {
         Button(action: {
+            settingManager.push(destination: .information)
         }, label: {
             Text("Edit")
                 .font(.body)
@@ -100,7 +118,7 @@ struct ProfileView: View {
                 .foregroundColor(.white)
         })
         .frame(maxWidth: .infinity, maxHeight: 56)
-//        .background(Color(.primary1))
+        .background(Color("Primary"))
         .cornerRadius(16)
         .padding(20)
     }

@@ -35,6 +35,7 @@ struct TabHomeView: View {
                     }
                     .tint(Color("Primary"))
                     .navigationBarHidden(true)
+                    .environmentObject(settingManager) // ⚠️ PHẢI CÓ DÒNG NÀY
 
                     .navigationDestination(for: Destination.self) { destination in
                         switch destination {

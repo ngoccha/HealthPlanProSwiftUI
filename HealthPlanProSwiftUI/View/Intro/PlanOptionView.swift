@@ -96,6 +96,8 @@ struct PlanOptionView: View {
                     }
             }
         }
+        .navigationBarHidden(true)
+
     }
 }
 
