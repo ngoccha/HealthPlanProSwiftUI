@@ -9,6 +9,8 @@ import SwiftUI
 
 struct FirstPageView: View {
     @State private var goToIssueOption = false
+    @EnvironmentObject var settingManager: SettingManager
+
     var body: some View {
         NavigationStack {
             VStack {
@@ -35,13 +37,10 @@ struct FirstPageView: View {
             }
             .background(Color("Background"))
             .navigationDestination(isPresented: $goToIssueOption) {
-                            IssueOptionView()
+                    IssueOptionView()
+                    .environmentObject(settingManager)
             }
             .navigationBarHidden(true)
         }
     }
-}
-
-#Preview {
-    FirstPageView()
 }

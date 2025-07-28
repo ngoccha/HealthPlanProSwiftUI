@@ -10,7 +10,7 @@ import SwiftUI
 struct PlanOptionView: View {
     @State private var goToTabView = false
     @EnvironmentObject var settingManager: SettingManager
-    
+    @AppStorage("done") var isDoneIntro: Bool = false
     
     @State private var plans = [
         Option(name: "Educational Plan", imageName: "icPlanApple", isSelected: false),
@@ -59,48 +59,28 @@ struct PlanOptionView: View {
                 Spacer()
                 ButtonView(title: "Continue", action: {
                     goToTabView = true
+                    isDoneIntro = true
                 }, isEnabled: isEnabled)
             }
             .padding(.top, 80)
             .background(Color("Background"))
         }
         .navigationDestination(isPresented: $goToTabView) {
-            NavigationStack(path: $settingManager.settingPath) {
+            NavigationStack(path: $settingManager.settingPath)  {
                 TabHomeView()
                     .environmentObject(settingManager)
-                    .navigationDestination(for: Destination.self) { destination in
-                        switch destination {
-                        case .profile:
-                            ProfileView()
-                                .environmentObject(settingManager)
-                        case .information:
-                            InformationView()
-                                .environmentObject(settingManager)
-                        case .setting:
-                            SettingView()
-                                .environmentObject(settingManager)
-
-                            
-                        }
-                    }
-                    .navigationBarHidden(true)
                     .onAppear {
                         let appearance: UITabBarAppearance = {
-                            let app = UITabBarAppearance()
-                            app.stackedLayoutAppearance.normal.titleTextAttributes = [
-                                .font: UIFont.systemFont(ofSize: 14)
-                            ]
-                            return app
-                        }()
-                        UITabBar.appearance().scrollEdgeAppearance = appearance
-                    }
+                                let app = UITabBarAppearance()
+                                app.stackedLayoutAppearance.normal.titleTextAttributes = [
+                                    .font: UIFont.systemFont(ofSize: 14)
+                                ]
+                                return app
+                            }()
+                            UITabBar.appearance().scrollEdgeAppearance = appearance                    }
             }
         }
         .navigationBarHidden(true)
-
+        
     }
-}
-
-#Preview {
-    PlanOptionView()
 }

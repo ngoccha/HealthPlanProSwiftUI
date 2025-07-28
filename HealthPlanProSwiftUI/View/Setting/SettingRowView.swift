@@ -22,10 +22,31 @@ struct SettingRowView: View {
         .padding(.vertical, 16)
         .padding(.horizontal, 16)
         .background(Color.white)
-        .cornerRadius(isFirst ? 16 : 0)
-        .cornerRadius(isLast ? 16 : 0)
+        .clipShape(
+            .rect (
+                topLeadingRadius: isFirst ? 16 : 0,
+                bottomLeadingRadius: isLast ? 16 : 0,
+                bottomTrailingRadius: isLast ? 16 : 0,
+                topTrailingRadius: isFirst ? 16 : 0
+            )
+        )
+        .overlay(
+            Group {
+                if isFirst && isLast {
+                   //ko lam j
+                } else if !isLast {
+                    Divider()
+                        .padding(.leading, 52)
+                        .padding(.trailing, 16)
+                } else if isFirst {
+                    Divider()
+                        .padding(.leading, 52)
+                        .padding(.trailing, 16)
+                }
+            },
+            alignment: .bottom
+        )
         .padding(.bottom, isLast ? 16 : 0)
-        
     }
 }
 

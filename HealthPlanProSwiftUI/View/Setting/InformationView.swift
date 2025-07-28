@@ -24,7 +24,7 @@ struct InformationView: View {
                     HStack {
                         Image("icBack")
                             .onTapGesture {
-                                settingManager.popToRoot()
+                                settingManager.popToRoot(destination: .setting)
                             }
                         Spacer()
                     }
@@ -112,22 +112,6 @@ struct InformationView: View {
                     }
                 }
                 .padding(.bottom, 21)
-                
-                //            if show {
-                //                HStack(alignment: .top, spacing: 16) {
-                //                    VStack(alignment: .leading, spacing: 11) {
-                //                        Text("**Full name:** \(firstName) \(lastName)")
-                //                        Text("**Height:** \(height) cm")
-                //                        Text("**BMI:** \(bmi)")
-                //                    }
-                //                    Spacer()
-                //                    VStack(alignment: .leading, spacing: 11) {
-                //                        Text("**Gender:** \(gender)")
-                //                        Text("**Weight:** \(weight) kg")
-                //                    }
-                //                    .padding(.trailing, 50)
-                //                }
-                //            }
                 
                 Spacer()
                 

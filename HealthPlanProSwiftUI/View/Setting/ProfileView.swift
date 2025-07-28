@@ -21,7 +21,7 @@ struct ProfileView: View {
                     HStack {
                         Image("icBack")
                             .onTapGesture {
-                                settingManager.popToRoot()
+                                settingManager.popToRoot(destination: .setting)
                             }
                             .padding(.leading, 16)
                         Spacer()
@@ -32,8 +32,7 @@ struct ProfileView: View {
                         .fontWeight(.bold)
                         .foregroundStyle(Color("Neutral1"))
                 }
-                .padding(.vertical, 24)
-                Spacer()
+                .padding(.bottom, 24)
                 avaView
                 infoProfileView
                 Spacer()
@@ -122,9 +121,4 @@ struct ProfileView: View {
         .cornerRadius(16)
         .padding(20)
     }
-}
-
-
-#Preview {
-    ProfileView()
 }

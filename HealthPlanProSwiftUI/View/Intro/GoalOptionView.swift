@@ -9,6 +9,7 @@ import SwiftUI
 
 struct GoalOptionView: View {
     @State private var goToPlanOption = false
+    @EnvironmentObject var settingManager: SettingManager
     
     @State private var goals = [
         Option(name: "Improve Heart Health", imageName: "icHeartStrong", isSelected: false),
@@ -56,19 +57,16 @@ struct GoalOptionView: View {
                 .padding(.horizontal, 16)
                 Spacer()
                 ButtonView(title: "Continue", action: {
-                        goToPlanOption = true
+                    goToPlanOption = true
                 }, isEnabled: isEnabled)
             }
             .padding(.top, 80)
             .background(Color("Background"))
-        }
+        
         .navigationDestination(isPresented: $goToPlanOption) {
             PlanOptionView()
-        }
+                .environmentObject(settingManager)
+        }}
         .navigationBarHidden(true)
     }
-}
-
-#Preview {
-    GoalOptionView()
 }

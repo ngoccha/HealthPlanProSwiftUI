@@ -16,6 +16,7 @@ enum Destination: Hashable {
 class SettingManager: ObservableObject {
     @Published var settingPath = NavigationPath()
     @Published var profile: Profile?
+    @Published var selectedTab: Tab = .log
    
     init(profile: Profile? = nil) {
             self.profile = profile
@@ -29,8 +30,9 @@ class SettingManager: ObservableObject {
         settingPath.removeLast()
     }
     
-    func popToRoot() {
+    func popToRoot(destination: Destination) {
         settingPath = NavigationPath()
+        settingPath.append(destination)
     }
     
     func saveProfile(_ newProfile: Profile) {

@@ -9,7 +9,8 @@ import SwiftUI
 
 struct IssueOptionView: View {
     @State private var goToGoalOption = false
-    
+    @EnvironmentObject var settingManager: SettingManager
+
     @State private var issues = [
         Option(name: "Heart Rate", imageName: "icPulse", isSelected: false),
         Option(name: "High Blood Pressure", imageName: "icHighBlood", isSelected: false),
@@ -63,11 +64,9 @@ struct IssueOptionView: View {
         }
         .navigationDestination(isPresented: $goToGoalOption) {
             GoalOptionView()
+                .environmentObject(settingManager)
+
         }
         .navigationBarHidden(true)
     }
-}
-
-#Preview {
-    IssueOptionView()
 }

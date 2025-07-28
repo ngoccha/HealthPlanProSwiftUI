@@ -8,33 +8,20 @@
 import SwiftUI
 
 struct SettingView: View {
-    @StateObject var settingManager: SettingManager = .init()
+    @EnvironmentObject var settingManager: SettingManager
     
+    let section1 = [SettingItem.profile]
     let section2 = [SettingItem.reminder, SettingItem.icon, SettingItem.language]
     let section3 = [SettingItem.rate, SettingItem.feeback, SettingItem.privacy, SettingItem.term]
     
     var body: some View {
-        NavigationStack(path: $settingManager.settingPath) {
-            VStack(alignment: .leading, spacing: 16) {
-                titleView
-                imagePremiumView
-                settingListView
-            }
-            .padding(.horizontal, 16)
-            .background(Color("Background"))
-            .navigationDestination(for: Destination.self) { destination in
-                switch destination {
-                case .information:
-                    InformationView()
-                        .environmentObject(settingManager)
-                case .profile:
-                    ProfileView()
-                        .environmentObject(settingManager)
-                default:
-                    SettingView()
-                }
-            }
+        VStack(alignment: .leading, spacing: 16) {
+            titleView
+            imagePremiumView
+            settingListView
         }
+        .padding(.horizontal, 16)
+        .background(Color("Background"))
     }
     
     var titleView: some View {
@@ -53,10 +40,16 @@ struct SettingView: View {
     var settingListView: some View {
         List {
             Section {
-                SettingRowView(settingItem: SettingItem.profile)
+                ForEach(0..<section1.count, id: \.self) { index in
+                    let item = section1[index]
+                    SettingRowView(
+                        settingItem: item,
+                        isFirst: index == 0,
+                        isLast: index == section1.count - 1
+                    )
                     .listRowInsets(EdgeInsets())
-                    .cornerRadius(12)
-                    .padding(.bottom, 16)
+                }
+                .listRowSeparator(.hidden)
                     .onTapGesture {
                         if settingManager.profile == nil {
                             settingManager.push(destination: .information)
@@ -65,6 +58,7 @@ struct SettingView: View {
                             
                         }
                     }
+                    .listRowSeparator(.hidden)
             }
             .background(Color("Background"))
             
@@ -78,6 +72,7 @@ struct SettingView: View {
                     )
                     .listRowInsets(EdgeInsets())
                 }
+                .listRowSeparator(.hidden)
             }
             .background(Color("Background"))
             
@@ -91,16 +86,12 @@ struct SettingView: View {
                     )
                     .listRowInsets(EdgeInsets())
                 }
+                .listRowSeparator(.hidden)
             }
             .background(Color("Background"))
         }
         .listStyle(.plain)
         .background(Color("Background"))
+        .navigationBarHidden(true)
     }
-    
-    
-}
-
-#Preview {
-    SettingView()
 }
