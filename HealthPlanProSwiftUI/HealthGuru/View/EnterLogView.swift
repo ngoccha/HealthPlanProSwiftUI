@@ -12,6 +12,13 @@ struct EnterLogView: View {
     @Binding var logs: [Log]
     @State private var pulse: String = ""
     @State private var hrv: String = ""
+    
+    var isEnabled: Bool {
+        !(pulse == "" || hrv == "") && !(Double(pulse) == nil || Double(hrv) == nil)
+        
+
+    }
+    
     var body: some View {
         VStack {
             ZStack() {
@@ -36,31 +43,13 @@ struct EnterLogView: View {
                     Text("Pulse")
                         .foregroundStyle(Color("Neutral15"))
                         .fontWeight(.medium)
-                    TextField("", text: $pulse)
-                        .padding(.leading, 12)
-                        .frame(height: 52)
-                        .font(.body)
-                        .background(Color.white)
-                        .cornerRadius(16)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color("Neutral4"), lineWidth: 0.5)
-                        )
+                    CustomTextFieldView(text: $pulse, placeholder: "Enter pulse")
                 }
                 VStack(alignment: .leading) {
                     Text("HRV")
                         .foregroundStyle(Color("Neutral15"))
                         .fontWeight(.medium)
-                    TextField("", text: $hrv)
-                        .padding(.leading, 12)
-                        .frame(height: 52)
-                        .font(.body)
-                        .background(Color.white)
-                        .cornerRadius(16)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 20)
-                                .stroke(Color("Neutral4"), lineWidth: 0.5)
-                        )
+                    CustomTextFieldView(text: $hrv, placeholder: "Enter HRV")
                 }
             }
             .padding(.horizontal, 16)
@@ -69,7 +58,7 @@ struct EnterLogView: View {
             ButtonView(title: "Add", action: {
                 addLog()
                 dismiss()
-            })
+            }, isEnabled: isEnabled)
             
         }
     }

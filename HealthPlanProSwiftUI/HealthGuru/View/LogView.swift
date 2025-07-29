@@ -14,7 +14,7 @@ struct LogView: View {
             ForEach(0..<logs.count, id: \.self) { item in
                 HStack(spacing: 13) {
                     Image("icHeartbeat")
-                    HStack(spacing: 27) {
+                    HStack(spacing: 0) {
                         VStack(alignment: .leading) {
                             Text("Pulse")
                                 .fontWeight(.medium)
@@ -23,6 +23,7 @@ struct LogView: View {
                                 .fontWeight(.medium)
                                 .foregroundStyle(Color(logs[item].status.statusColor))
                         }
+                        .frame(width: 90, alignment: .leading)
                         VStack(alignment: .leading) {
                             Text("HRV")
                                 .fontWeight(.medium)
@@ -31,6 +32,7 @@ struct LogView: View {
                                 .fontWeight(.medium)
                                 .foregroundStyle(Color(logs[item].status.statusColor))
                         }
+                        .frame(width: 90, alignment: .leading)
                         VStack(alignment: .leading) {
                             Text("Status")
                                 .fontWeight(.medium)
@@ -39,8 +41,8 @@ struct LogView: View {
                                 .fontWeight(.medium)
                                 .foregroundStyle(Color(logs[item].status.statusColor))
                         }
+                        .frame(width: 90, alignment: .leading)
                     }
-                    Spacer()
                 }
                 .padding(12)
                 .background(Color.white)

@@ -71,13 +71,22 @@ struct PlanOptionView: View {
                     .environmentObject(settingManager)
                     .onAppear {
                         let appearance: UITabBarAppearance = {
-                                let app = UITabBarAppearance()
-                                app.stackedLayoutAppearance.normal.titleTextAttributes = [
-                                    .font: UIFont.systemFont(ofSize: 14)
-                                ]
-                                return app
-                            }()
-                            UITabBar.appearance().scrollEdgeAppearance = appearance                    }
+                            let app = UITabBarAppearance()
+                            app.configureWithTransparentBackground()
+                    
+                            let bgImage = createBackgroundImage()
+                            app.backgroundImage = bgImage
+                            
+                            app.stackedLayoutAppearance.normal.titleTextAttributes = [
+                                .font: UIFont.systemFont(ofSize: 14)
+                            ]
+                            
+                            return app
+                        }()
+                        UITabBar.appearance().standardAppearance = appearance
+                        UITabBar.appearance().scrollEdgeAppearance = appearance
+                    }
+                
             }
         }
         .navigationBarHidden(true)

@@ -17,10 +17,26 @@ struct HealthPlanProSwiftUIApp: App {
             NavigationStack(path: $settingManager.settingPath) {
                 Group {
                     if isDoneIntro {
-                        TabHomeView()
-                            .onAppear {
-                                settingManager.selectedTab = .log
-                            }
+                            TabHomeView()
+                                .onAppear {
+                                    settingManager.selectedTab = .log
+                                    let appearance: UITabBarAppearance = {
+                                        let app = UITabBarAppearance()
+                                        app.configureWithTransparentBackground()
+                                
+                                        let bgImage = createBackgroundImage()
+                                        app.backgroundImage = bgImage
+                                        
+                                        app.stackedLayoutAppearance.normal.titleTextAttributes = [
+                                            .font: UIFont.systemFont(ofSize: 14)
+                                        ]
+                                        
+                                        return app
+                                    }()
+                                    UITabBar.appearance().standardAppearance = appearance
+                                    UITabBar.appearance().scrollEdgeAppearance = appearance
+                                    
+                                }
                     } else {
                         FirstPageView()
                     }

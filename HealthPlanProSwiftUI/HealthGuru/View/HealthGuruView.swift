@@ -37,8 +37,8 @@ struct HealthGuruView: View {
             }
             
             Spacer()
+            
         }
-        
         .padding(.horizontal, 16)
         .background(Color("Background"))
         .navigationBarHidden(true)

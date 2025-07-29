@@ -17,8 +17,12 @@ struct InformationView: View {
     
     @EnvironmentObject var settingManager: SettingManager
     
+    var isEnabled: Bool {
+        (!(firstName == "" || lastName == "" || height == "" || weight == "") && !((Double(height) == nil) || (Double(weight) == nil)))
+    }
     
     var body: some View {
+        VStack {
             VStack {
                 ZStack() {
                     HStack {
@@ -35,29 +39,20 @@ struct InformationView: View {
                         .foregroundStyle(Color("Neutral1"))
                 }
                 .padding(.bottom, 24)
-
+                
                 
                 HStack(spacing: 12) {
                     VStack(alignment: .leading) {
                         Text("First name")
                             .font(.body)
-                        TextField(("Enter first name"), text:
-                                    $firstName)
-                        .padding(.leading, 12)
-                        .frame(height: 52)
-                        .font(.body)
-                        .background(Color.white)
-                        .cornerRadius(16)
+                            .foregroundStyle(Color("Neutral15"))
+                        CustomTextFieldView(text: $firstName, placeholder: "Enter first name...")
                     }
                     VStack(alignment: .leading) {
                         Text("Last name")
                             .font(.body)
-                        TextField("Enter last name", text: $lastName)
-                            .padding(.leading, 12)
-                            .frame(height: 52)
-                            .font(.body)
-                            .background(Color.white)
-                            .cornerRadius(16)
+                            .foregroundStyle(Color("Neutral15"))
+                        CustomTextFieldView(text: $lastName, placeholder: "Enter last name...")
                     }
                 }
                 .padding(.bottom, 21)
@@ -77,61 +72,36 @@ struct InformationView: View {
                 .padding(.bottom, 21)
                 
                 
-                VStack() {
+                HStack() {
                     VStack(alignment: .leading) {
                         Text("Height")
                             .font(.body)
+                            .foregroundStyle(Color("Neutral15"))
                         HStack() {
-                            TextField("Enter height", text: $height)
-                                .padding(.leading, 12)
-                                .frame(height: 52)
-                                .font(.body)
-                                .background(Color.white)
-                                .cornerRadius(16)
-                            Text("Cm")
-                                .padding(.leading, 12)
-                                .padding(.trailing, 8)
+                            CustomTextFieldView(text: $height, placeholder: "Enter height...")
                         }
                     }
-                    .padding(.bottom, 21)
                     
                     VStack(alignment: .leading) {
                         Text("Weight")
                             .font(.body)
+                            .foregroundStyle(Color("Neutral15"))
                         HStack() {
-                            TextField("Enter weight", text: $weight)
-                                .padding(.leading, 12)
-                                .frame(height: 52)
-                                .font(.body)
-                                .background(Color.white)
-                                .cornerRadius(16)
-                            Text("Kg")
-                                .padding(.leading, 12)
-                                .padding(.trailing, 8)
+                            CustomTextFieldView(text: $weight, placeholder: "Enter weight...")
                         }
                     }
                 }
                 .padding(.bottom, 21)
                 
                 Spacer()
-                
-                Button(action: {
-                    saveProfile()
-                    print(settingManager.profile ?? "nil")
-                    
-                }, label: {
-                    Text("Complete")
-                        .font(.body)
-                        .fontWeight(.semibold)
-                        .foregroundColor(.white)
-                })
-                .frame(width: 361, height: 52)
-                .background(Color("Primary"))
-                .cornerRadius(16)
             }
             .padding(16)
-            .background(Color(.background))
-            .navigationBarHidden(true)
+            
+            ButtonView(title: "Complete", action: saveProfile, isEnabled: isEnabled)
+        }
+        .background(Color(.background))
+        .navigationBarHidden(true)
+        
     }
     func saveProfile() {
         
@@ -154,8 +124,3 @@ struct InformationView: View {
         
     }
 }
-
-#Preview {
-    InformationView()
-}
-
