@@ -70,9 +70,3 @@ struct EnterLogView: View {
         logs.append(Log(pulse: pulse, hrv: hrv))
     }
 }
-
-#Preview {
-    EnterLogView(logs: .constant([
-        Log(pulse: 120, hrv: 60)
-    ]))
-}

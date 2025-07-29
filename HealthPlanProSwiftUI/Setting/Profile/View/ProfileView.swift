@@ -36,7 +36,9 @@ struct ProfileView: View {
                 avaView
                 infoProfileView
                 Spacer()
-                editButtonView
+                ButtonView(title: "Edit", action: {
+                    settingManager.push(destination: .information)
+                })
             }
         }
         .navigationBarHidden(true)
@@ -105,20 +107,5 @@ struct ProfileView: View {
         .background(.white)
         .cornerRadius(16)
         .padding(.horizontal, 31.5)
-    }
-    
-    var editButtonView: some View {
-        Button(action: {
-            settingManager.push(destination: .information)
-        }, label: {
-            Text("Edit")
-                .font(.body)
-                .fontWeight(.semibold)
-                .foregroundColor(.white)
-        })
-        .frame(maxWidth: .infinity, maxHeight: 56)
-        .background(Color("Primary"))
-        .cornerRadius(16)
-        .padding(20)
     }
 }
